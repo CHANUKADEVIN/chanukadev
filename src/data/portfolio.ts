@@ -4,8 +4,8 @@ export const portfolioData = {
     title: "Software Engineer | Freelancer | Entrepreneur",
     tagline: "Building intelligent web systems and next-generation 3D experiences.",
     bio: "I'm a passionate Software Engineer with hands-on experience in React.js, TypeScript, and Python frameworks such as Flask, FastAPI, and Django. I specialize in building full-stack web applications, AI-integrated systems, and real-time multimedia software.",
-    email: "contact@chanukadev.com",
-    avatar: "/public/me.jpg"
+  email: "contact@chanukadev.com",
+  avatar: "/me.jpg"
   },
   social: {
     linkedin: "https://www.linkedin.com/in/chanuka-devin/",
@@ -155,7 +155,7 @@ export const portfolioData = {
       company: "21C Care (Pvt) Ltd",
       text: "Chanuka Devin is a skilled full-stack developer with strong problem-solving and communication skills. His dedication, modern tech expertise, and teamwork make him an exceptional software engineer.",
       linkedin: "#",
-      image: "/public/testimonials/seb.jpeg"
+  image: "/testimonials/seb.jpeg"
     },
     {
       name: "Sachinthaka Ayeshmantha",
@@ -163,7 +163,7 @@ export const portfolioData = {
       company: "21C Care (Pvt) Ltd",
       text: "Chanuka is an outstanding developer and team player who writes solid code, learns fast, and drives project success with skill, collaboration, and a positive attitude.",
       linkedin: "#",
-      image: "/public/testimonials/sachinthaka.jpeg"
+  image: "/testimonials/sachinthaka.jpeg"
     },
     {
       name: "Maria Rodriguez",
