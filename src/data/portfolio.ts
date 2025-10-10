@@ -1,3 +1,9 @@
+const assetPath = (p: string) => {
+  const base = import.meta.env.BASE_URL ?? '/';
+  const normalizedBase = base.endsWith('/') ? base : base + '/';
+  return normalizedBase + p.replace(/^\//, '');
+};
+
 export const portfolioData = {
   personal: {
     name: "Chanuka Devin",
@@ -5,7 +11,7 @@ export const portfolioData = {
     tagline: "Building intelligent web systems and next-generation 3D experiences.",
     bio: "I'm a passionate Software Engineer with hands-on experience in React.js, TypeScript, and Python frameworks such as Flask, FastAPI, and Django. I specialize in building full-stack web applications, AI-integrated systems, and real-time multimedia software.",
   email: "contact@chanukadev.com",
-  avatar: "/me.jpg"
+  avatar: assetPath('/me.jpg')
   },
   social: {
     linkedin: "https://www.linkedin.com/in/chanuka-devin/",
@@ -155,7 +161,7 @@ export const portfolioData = {
       company: "21C Care (Pvt) Ltd",
       text: "Chanuka Devin is a skilled full-stack developer with strong problem-solving and communication skills. His dedication, modern tech expertise, and teamwork make him an exceptional software engineer.",
       linkedin: "#",
-  image: "/testimonials/seb.jpeg"
+  image: assetPath('/testimonials/seb.jpeg')
     },
     {
       name: "Sachinthaka Ayeshmantha",
@@ -163,7 +169,7 @@ export const portfolioData = {
       company: "21C Care (Pvt) Ltd",
       text: "Chanuka is an outstanding developer and team player who writes solid code, learns fast, and drives project success with skill, collaboration, and a positive attitude.",
       linkedin: "#",
-  image: "/testimonials/sachinthaka.jpeg"
+  image: assetPath('/testimonials/sachinthaka.jpeg')
     },
     {
       name: "Maria Rodriguez",
@@ -203,31 +209,31 @@ export const portfolioData = {
       title: "Code & Conquer Hackathon 2024 - Team Collaboration",
       description: "Thrilled to participate in the Code & Conquer Hackathon, powered by SLASSCOM and LSEG. Collaborating with an amazing team, we tackled real-world challenges, explored innovative ideas, and enhanced our problem-solving skills.",
       date: "January 2025",
-      image: "/events/slass.jpeg"
+  image: assetPath('/events/slass.jpeg')
     },
     {
       title: "Code & Conquer Hackathon 2024 - Networking & Learning",
       description: "This event was a perfect platform to network with brilliant minds, learn from industry leaders, and experience the dynamic energy of tech innovation. Grateful for the guidance and support from mentors.",
       date: "January 2025",
-      image: "/events/slass2.jpeg"
+  image: assetPath('/events/slass2.jpeg')
     },
     {
       title: "Code & Conquer Hackathon 2024 - Innovation in Action",
       description: "Hackathons like these remind me why I'm passionate about tech – it's not just about coding; it's about solving problems and making a meaningful impact. An enriching experience with inspiring teamwork!",
       date: "January 2025",
-      image: "/events/slass3.jpeg"
+  image: assetPath('/events/slass3.jpeg')
     },
     {
       title: "Research Project Presentation with Prof. Anuradha Jayakodi",
       description: "Presenting our research findings with our supervisor Professor Anuradha Jayakodi. Grateful for the invaluable guidance and mentorship throughout the research journey on 3D sign language animation and computer vision systems.",
       date: "2025",
-      image: "/events/research1.jpeg?auto=compress&cs=tinysrgb&w=800"
+  image: assetPath('/events/research1.jpeg')
     },
     {
       title: "InnovateX Grand Finale Preparation",
       description: "Proud to be part of InnovateX competition, working on innovative solutions and preparing for the Grand Finale! An incredible journey of creativity, problem-solving, and pushing technological boundaries.",
       date: "January 2025",
-      image: "/events/inovtex.jpg"
+  image: assetPath('/events/inovtex.jpg')
     },
 
 
