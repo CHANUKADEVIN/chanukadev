@@ -1,6 +1,7 @@
 import { motion, useAnimation } from 'framer-motion';
 import { ChevronDown, Sparkles, Code2, Download } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
+import { assetPath } from '../utils/asset';
 import { useEffect, useState, useMemo } from 'react';
 
 export const Hero = () => {
@@ -66,7 +67,7 @@ export const Hero = () => {
 
   const downloadCV = () => {
     const link = document.createElement('a');
-    link.href = '/Chanuka-Devin-CV-2025.pdf';
+    link.href = assetPath('/Chanuka-Devin-CV-2025.pdf');
     link.download = 'Chanuka_Devin_CV.pdf';
     link.click();
   };
