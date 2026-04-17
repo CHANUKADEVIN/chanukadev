@@ -40,19 +40,28 @@ export const Experience = () => {
               </motion.div>
 
               <div className="bg-white dark:bg-gray-900 p-6 rounded-xl border-2 border-gray-200 dark:border-gray-800 hover:border-red-500 dark:hover:border-red-500 transition-all">
-                <span className="text-sm text-red-600 dark:text-red-500 font-semibold">
-                  {exp.period}
-                </span>
-                <h3 className="text-xl font-bold mt-2 mb-1 text-gray-900 dark:text-white">
-                  {exp.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-3 font-medium">
-                  {exp.company}
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  {exp.description}
-                </p>
-              </div>
+                  <span className="text-sm text-red-600 dark:text-red-500 font-semibold">
+                    {exp.period}
+                  </span>
+                  <h3 className="text-xl font-bold mt-2 mb-1 text-gray-900 dark:text-white">
+                    {exp.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-1 font-medium">
+                    {exp.company}
+                  </p>
+                  {'location' in exp && exp.location && (
+                    <p className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-500 mb-3">
+                      <svg className="w-3.5 h-3.5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {(exp as { location: string }).location}
+                    </p>
+                  )}
+                  <p className="text-gray-700 dark:text-gray-300">
+                    {exp.description}
+                  </p>
+                </div>
             </motion.div>
           ))}
         </div>
