@@ -67,7 +67,7 @@ export const Hero = () => {
 
   const downloadCV = () => {
     const link = document.createElement('a');
-    link.href = assetPath('/Chanuka-Devin-CV-2025.pdf');
+    link.href = assetPath('/Chanuka-Devin-CV-2026.pdf');
     link.download = 'Chanuka_Devin_CV.pdf';
     link.click();
   };
