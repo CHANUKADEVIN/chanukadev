@@ -1,24 +1,51 @@
-import { motion } from 'framer-motion';
-import { Heart } from 'lucide-react';
+import { portfolioData } from '../data/portfolio';
+import { Github, Linkedin, Mail, Heart } from 'lucide-react';
 
-export const Footer = () => {
-  return (
-    <footer className="py-8 bg-gray-50 dark:bg-black border-t border-gray-200 dark:border-gray-900">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
-        >
-          <p className="text-gray-600 dark:text-gray-400 flex items-center justify-center gap-2">
-            © 2025 Chanuka Devin. All rights reserved.
-            <span className="flex items-center gap-1">
-              Made with <Heart size={16} className="text-red-600 fill-red-600 animate-pulse" />
-            </span>
-          </p>
-        </motion.div>
+export const Footer = () => (
+  <footer className="border-t border-grid-line py-10 bg-obsidian">
+    <div className="max-w-7xl mx-auto px-6 md:px-16 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="font-mono text-xs text-dim-gray">
+        <span className="text-neon-volt">[CD]</span> Chanuka Devin · 2026
+        <span className="mx-2 text-grid-line">·</span>
+        Built with{' '}
+        <Heart size={10} className="inline text-neon-volt" />
+        {' '}React + GSAP + Lenis
       </div>
-    </footer>
-  );
-};
+
+      <div className="flex items-center gap-4">
+        <a
+          id="footer-github"
+          href={portfolioData.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-dim-gray hover:text-neon-volt transition-colors duration-200"
+          aria-label="GitHub"
+        >
+          <Github size={18} />
+        </a>
+        <a
+          id="footer-linkedin"
+          href={portfolioData.social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-dim-gray hover:text-cyber-cyan transition-colors duration-200"
+          aria-label="LinkedIn"
+        >
+          <Linkedin size={18} />
+        </a>
+        <a
+          id="footer-email"
+          href={portfolioData.social.email}
+          className="text-dim-gray hover:text-neon-volt transition-colors duration-200"
+          aria-label="Email"
+        >
+          <Mail size={18} />
+        </a>
+      </div>
+
+      <div className="font-mono text-xs text-dim-gray">
+        <span className="text-cyber-cyan animate-pulse">●</span> AVAILABLE · LK
+      </div>
+    </div>
+  </footer>
+);

@@ -1,33 +1,37 @@
-import { useTheme } from './hooks/useTheme';
+import { SmoothScrollProvider } from './components/layout/SmoothScrollProvider';
+import { NoiseOverlay } from './components/layout/NoiseOverlay';
+import { CyberCursor } from './components/layout/CyberCursor';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
-import { Journey } from './components/Journey';
+import { Lab } from './components/Lab';
 import { Research } from './components/Research';
-import { Testimonials } from './components/Testimonials';
+import { JourneyGallery } from './components/JourneyGallery';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
-
 function App() {
-  const { theme, toggleTheme } = useTheme();
-
   return (
-    <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
-      <Navigation theme={theme} toggleTheme={toggleTheme} />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Journey />
-      <Research />
-      <Testimonials />
-      <Contact />
-      <Footer />
-
-    </div>
+    <SmoothScrollProvider>
+      <div className="min-h-screen bg-obsidian text-ghost-white font-body">
+        <NoiseOverlay />
+        <CyberCursor />
+        <Navigation />
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Lab />
+          <Research />
+          <JourneyGallery />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </SmoothScrollProvider>
   );
 }
 

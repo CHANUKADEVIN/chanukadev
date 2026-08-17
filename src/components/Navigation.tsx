@@ -1,225 +1,161 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Moon, Sun, Menu, X } from 'lucide-react';
-import { Theme } from '../hooks/useTheme';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
-interface NavigationProps {
-  theme: Theme;
-  toggleTheme: () => void;
-}
+const NAV_LINKS = [
+  { label: 'ABOUT', id: 'about' },
+  { label: 'SKILLS', id: 'skills' },
+  { label: 'WORK', id: 'projects' },
+  { label: 'LAB', id: 'lab' },
+  { label: 'RESEARCH', id: 'research' },
+  { label: 'JOURNAL', id: 'gallery' },
+  { label: 'CONTACT', id: 'contact' },
+];
 
-export const Navigation = ({ theme, toggleTheme }: NavigationProps) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+export const Navigation = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Research', 'Testimonials', 'Contact'];
+  // Active section detection
+  useEffect(() => {
+    const sections = ['home', 'about', 'skills', 'projects', 'lab', 'research', 'contact'];
+    const observers = sections.map((id) => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: '-40% 0px -40% 0px' }
+      );
+      obs.observe(el);
+      return obs;
+    });
+    return () => observers.forEach((o) => o?.disconnect());
+  }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId.toLowerCase());
-    element?.scrollIntoView({ behavior: 'smooth' });
-    setIsMobileMenuOpen(false);
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setMobileOpen(false);
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
-        ? 'bg-white/80 dark:bg-black/80 backdrop-blur-lg shadow-lg'
-        : 'bg-transparent'
-        }`}
-    >
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex items-center gap-3 cursor-pointer"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    <>
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
+      >
+        <div
+          className="max-w-7xl mx-auto flex items-center justify-between"
+          style={{
+            background: scrolled ? 'rgba(10,10,15,0.85)' : 'transparent',
+            backdropFilter: scrolled ? 'blur(20px)' : 'none',
+            borderBottom: scrolled ? '1px solid rgba(26,26,36,0.8)' : '1px solid transparent',
+            borderRadius: 0,
+            transition: 'all 0.4s ease',
+            padding: scrolled ? '12px 24px' : '4px 24px',
+          }}
+        >
+          {/* Logo */}
+          <button
+            id="nav-logo"
+            onClick={() => scrollTo('home')}
+            className="font-mono font-bold text-lg group flex items-center gap-2"
           >
+            <span className="text-neon-volt glow-volt-text group-hover:animate-flicker">
+              [CD]
+            </span>
+            <span className="text-dim-gray text-xs hidden sm:block">
+              &gt; chanuka.devin
+            </span>
+          </button>
 
-            {/* CD Text with Ocean Wave Animation */}
-            <div className="relative overflow-hidden">
-              <svg
-                className="h-12 md:h-16 w-auto"
-                viewBox="0 0 120 60"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  {/* Red wave gradient */}
-                  <linearGradient id="redWaveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#dc2626" />
-                    <stop offset="50%" stopColor="#ef4444" />
-                    <stop offset="100%" stopColor="#dc2626" />
-                  </linearGradient>
-
-                  {/* Red gradient for fallback */}
-                  <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#dc2626" />
-                    <stop offset="100%" stopColor="#ef4444" />
-                  </linearGradient>
-
-                  {/* Clip path for text */}
-                  <clipPath id="textClip">
-                    <text
-                      x="5"
-                      y="42"
-                      fontSize="40"
-                      fontWeight="800"
-                      fontFamily="system-ui, -apple-system, sans-serif"
-                    >
-                      CD
-                    </text>
-                  </clipPath>
-                </defs>
-
-                {/* Base text with gradient */}
-                <text
-                  x="5"
-                  y="42"
-                  fontSize="40"
-                  fontWeight="800"
-                  fontFamily="system-ui, -apple-system, sans-serif"
-                  fill="url(#redGradient)"
-                  className="dark:fill-white"
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map(({ label, id }) => {
+              const isActive = activeSection === id;
+              return (
+                <button
+                  key={id}
+                  id={`nav-${id}`}
+                  onClick={() => scrollTo(id)}
+                  className="relative group px-4 py-2 font-mono text-xs tracking-widest transition-colors duration-200"
+                  style={{ color: isActive ? '#ccff00' : '#4a4a5a' }}
                 >
-                  CD
-                </text>
-
-                {/* Animated ocean waves clipped to text */}
-                <g clipPath="url(#textClip)">
-                  {/* Wave 1 */}
-                  <path
-                    d="M-200,35 Q-150,25 -100,35 T0,35 T100,35 T200,35 T300,35 T400,35 L400,60 L-200,60 Z"
-                    fill="url(#redWaveGradient)"
-                    opacity="0.6"
-                  >
-                    <animateTransform
-                      attributeName="transform"
-                      type="translate"
-                      from="0,0"
-                      to="200,0"
-                      dur="3s"
-                      repeatCount="indefinite"
+                  <span className="group-hover:text-ghost-white transition-colors duration-200">
+                    <span className="opacity-0 group-hover:opacity-100 text-cyber-cyan transition-opacity duration-200 mr-1">
+                      &gt;
+                    </span>
+                    {label}
+                  </span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-indicator"
+                      className="absolute bottom-0 left-0 right-0 h-px bg-neon-volt"
+                      style={{ boxShadow: '0 0 6px rgba(204,255,0,0.6)' }}
                     />
-                  </path>
-
-                  {/* Wave 2 - slower */}
-                  <path
-                    d="M-200,40 Q-150,30 -100,40 T0,40 T100,40 T200,40 T300,40 T400,40 L400,60 L-200,60 Z"
-                    fill="#ffffff"
-                    opacity="0.3"
-                  >
-                    <animateTransform
-                      attributeName="transform"
-                      type="translate"
-                      from="0,0"
-                      to="200,0"
-                      dur="4.5s"
-                      repeatCount="indefinite"
-                    />
-                  </path>
-
-                  {/* Wave 3 - opposite direction */}
-                  <path
-                    d="M-200,32 Q-150,27 -100,32 T0,32 T100,32 T200,32 T300,32 T400,32 L400,60 L-200,60 Z"
-                    fill="#dc2626"
-                    opacity="0.4"
-                  >
-                    <animateTransform
-                      attributeName="transform"
-                      type="translate"
-                      from="200,0"
-                      to="-200,0"
-                      dur="5s"
-                      repeatCount="indefinite"
-                    />
-                  </path>
-                </g>
-
-                {/* Shine effect */}
-                <rect
-                  x="-100"
-                  y="0"
-                  width="50"
-                  height="60"
-                  fill="white"
-                  opacity="0.3"
-                  transform="skewX(-20)"
-                  clipPath="url(#textClip)"
-                >
-                  <animate
-                    attributeName="x"
-                    from="-100"
-                    to="200"
-                    dur="3s"
-                    repeatCount="indefinite"
-                  />
-                </rect>
-              </svg>
-            </div>
-          </motion.div>
-
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <motion.button
-                key={item}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => scrollToSection(item)}
-                className="text-gray-800 dark:text-gray-200 hover:text-red-600 dark:hover:text-red-500 transition-colors font-medium"
-              >
-                {item}
-              </motion.button>
-            ))}
+                  )}
+                </button>
+              );
+            })}
           </div>
 
+          {/* Status + Mobile Toggle */}
           <div className="flex items-center gap-4">
-            <motion.button
-              whileHover={{ scale: 1.1, rotate: 180 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </motion.button>
-
+            <div className="hidden sm:flex items-center gap-2 font-mono text-xs">
+              <span
+                className="w-1.5 h-1.5 rounded-full bg-neon-volt animate-pulse"
+                style={{ boxShadow: '0 0 6px rgba(204,255,0,0.8)' }}
+              />
+              <span className="text-neon-volt">AVAILABLE</span>
+            </div>
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-gray-800 dark:text-gray-200"
+              id="nav-mobile-toggle"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden text-dim-gray hover:text-ghost-white transition-colors"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
+      </motion.nav>
 
-        {isMobileMenuOpen && (
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-4 pb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+            className="fixed top-16 left-0 right-0 z-40 border-b border-grid-line"
+            style={{ background: 'rgba(10,10,15,0.97)', backdropFilter: 'blur(20px)' }}
           >
-            {navItems.map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item)}
-                className="block w-full text-left py-2 px-4 text-gray-800 dark:text-gray-200 hover:text-red-600 dark:hover:text-red-500 transition-colors"
-              >
-                {item}
-              </button>
-            ))}
+            <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-2">
+              {NAV_LINKS.map(({ label, id }, i) => (
+                <motion.button
+                  key={id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => scrollTo(id)}
+                  className="text-left font-mono text-sm text-dim-gray hover:text-neon-volt py-2 border-b border-grid-line/50 last:border-0 flex items-center gap-3 transition-colors duration-200"
+                >
+                  <span className="text-cyber-cyan text-xs">0{i + 1}</span>
+                  {label}
+                </motion.button>
+              ))}
+            </div>
           </motion.div>
         )}
-      </div>
-    </motion.nav>
+      </AnimatePresence>
+    </>
   );
 };

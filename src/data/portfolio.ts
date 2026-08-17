@@ -14,7 +14,7 @@ export const portfolioData = {
     bioFocus: "Currently growing as a Go Developer and Full-Stack Engineer, with a strong focus on high-performance backend systems and innovative real-world problem solving.",
     techStack: ["Go", "React", "Next.js", "Node/NestJS", "Java Spring Boot", "Python (AI/ML)", "Docker", "AWS"],
     domains: ["Full-Stack Engineering", "AI/ML Applications", "LMS Platforms", "Workflow Automation"],
-    email: "contact@chanukadev.com",
+    email: "chanuka@auralflix.com",
     avatar: assetPath('/profile/me.jpg')
   },
   social: {
