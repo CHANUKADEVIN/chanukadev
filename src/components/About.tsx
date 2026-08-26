@@ -28,7 +28,7 @@ const TimelineItem = ({
     <div className="border border-grid-line p-5 card-hover" style={{ background: 'rgba(22,24,29,0.5)' }}>
       <div className="flex flex-wrap gap-2 items-start justify-between mb-2">
         <div>
-          <h4 className="font-display text-base font-bold text-ghost-white">{item.title}</h4>
+          <h3 className="font-display text-base font-bold text-ghost-white">{item.title}</h3>
           <p className="font-mono text-xs text-cyber-cyan mt-0.5">{item.company}</p>
         </div>
         <span className="font-mono text-xs text-dim-gray border border-grid-line px-2 py-1 whitespace-nowrap">
@@ -64,7 +64,7 @@ export const About = () => {
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 border-b border-r border-neon-volt" />
                 <img
                   src={assetPath('/profile/me.jpg')}
-                  alt="Chanuka Devin"
+                  alt="Chanuka Devin, Software Engineer based in Sri Lanka"
                   className="w-full h-full object-cover"
                   style={{ filter: 'grayscale(0.2) contrast(1.05)' }}
                   onError={(e) => {

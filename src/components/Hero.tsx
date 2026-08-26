@@ -147,7 +147,7 @@ const HUDPortrait = () => {
           {/* Main image */}
           <motion.img
             src={assetPath('/profile.jpg')}
-            alt="Chanuka Devin"
+            alt="Chanuka Devin — Software Engineer & Go Developer, based in Sri Lanka"
             className="w-full h-full object-cover object-top"
             animate={{
               filter: hovered
@@ -529,9 +529,14 @@ export const Hero = () => {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
+      <motion.div
+        role="button"
+        tabIndex={0}
+        aria-label="Scroll down to About section"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
         animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        onClick={() => scrollTo('about')}>
+        onClick={() => scrollTo('about')}
+        onKeyDown={(e) => e.key === 'Enter' && scrollTo('about')}>
         <span className="font-mono text-xs text-dim-gray tracking-widest">SCROLL</span>
         <div className="w-px h-10 bg-gradient-to-b from-neon-volt to-transparent" />
       </motion.div>

@@ -295,7 +295,7 @@ const Lightbox = ({
                 </span>
               )}
             </div>
-            <h2 className="font-display text-sm font-bold text-ghost-white leading-snug mb-0.5 truncate">{item.title}</h2>
+            <h3 className="font-display text-sm font-bold text-ghost-white leading-snug mb-0.5 truncate">{item.title}</h3>
             <p className="font-body text-xs text-dim-gray leading-relaxed line-clamp-2">{item.description}</p>
           </div>
 

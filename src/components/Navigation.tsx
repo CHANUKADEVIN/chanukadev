@@ -86,6 +86,8 @@ export const Navigation = () => {
                   key={id}
                   id={`nav-${id}`}
                   onClick={() => scrollTo(id)}
+                  aria-label={`Navigate to ${label.charAt(0) + label.slice(1).toLowerCase()} section`}
+                  aria-current={isActive ? 'true' : undefined}
                   className="relative group px-4 py-2 font-mono text-xs tracking-widest transition-colors duration-200"
                   style={{ color: isActive ? '#ccff00' : '#4a4a5a' }}
                 >
@@ -135,6 +137,8 @@ export const Navigation = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
+            role="navigation"
+            aria-label="Mobile navigation"
             className="fixed top-16 left-0 right-0 z-40 border-b border-grid-line"
             style={{ background: 'rgba(10,10,15,0.97)', backdropFilter: 'blur(20px)' }}
           >
